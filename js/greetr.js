@@ -6,31 +6,69 @@
 
 // hidden within the scope of the IIFE and never directly accessible
 
-    var supportedLangs = ['en', 'es'];
+    var supportedLangs = ['en', 'es', 'pl'];
 
     // informal greeting
     var greetings = {
         en: 'Hello',
         es: 'Hola',
+        pl: 'Ellohay'
     };
 
     // formal greeting
     var formalGreetings = {
         en: 'Greetings',
         es: 'Saludos',
+        pl: 'Eetingsgray'
     };
 
     // logger messages
     var logMessages = {
         en: 'Logged in',
         es: 'Inicio sesion',
+        pl: 'Oggedlay Inay'
     };
 
     // The prototype
 
     Greetr.prototype = {
         fullName: function() {
+
+            console.log(this.language);
+            if (this.language === 'pl') {
+                function pigLatin(str) {
+                    // Convert string to lowercase
+                    str = str.toLowerCase()
+                    // Initialize array of vowels
+                    const vowels = ["a", "e", "i", "o", "u"];
+                    // Initialize vowel index to 0
+                    let vowelIndex = 0;
+                  
+                    if (vowels.includes(str[0])) {
+                      // If first letter is a vowel
+                      return str + "way";
+                    } else {
+                      // If the first letter isn't a vowel i.e is a consonant
+                      for (let char of str) {
+                        // Loop through until the first vowel is found
+                        if (vowels.includes(char)) {
+                          // Store the index at which the first vowel exists
+                          vowelIndex = str.indexOf(char);
+                          break;
+                        }
+                      }
+                      // First char to uppercase
+                      var up = str.slice(vowelIndex).charAt(0).toUpperCase() + str.slice(vowelIndex).slice(1);
+                      
+                      // Compose final string
+                      return up + str.slice(0, vowelIndex) + "ay";
+                    }
+                  }
+            return pigLatin(this.firstName) + ' ' + pigLatin(this.lastName);
+
+            } else {
             return this.firstName + ' ' + this.lastName;
+            }
         },
 
         validate: function() {
